@@ -1,12 +1,15 @@
 const express = require("express"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid"),
   morgan = require("morgan");
 
 const app = express();
 // Automatically routes all requests for static files on server
 app.use(express.static("public"));
-
 //LOGGER
 app.use(morgan("common"));
+
+app.use(bodyParser.json());
 
 let topMovies = [
   {
