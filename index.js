@@ -425,21 +425,21 @@ app.put("/users/:id", (req, res) => {
 
   if (user) {
     user.username = updatedUser.username;
-    res.status(200).json(user);
+    res.status(200).json(user.username);
   } else {
     res.status(400).send("no user found");
   }
 });
 
 app.post("/users/:id/:title", (req, res) => {
-  const { id, movieTitle } = req.params;
+  const { id, title } = req.params;
   let user = users.find(user => user.id == id);
 
   if (user) {
-    user.topMovies.push(movieTitle);
+    user.topMovies.push(title);
     res
       .status(200)
-      .send(`${movieTitle} has been added to user ${id} movie list`);
+      .send(`${title} has been added to ${user.username} movie list`);
   } else {
     res.status(400).send("no user found");
   }
@@ -453,21 +453,21 @@ app.delete("/users/:id", (req, res) => {
 
   if (user) {
     users = users.filter(user => user.id != id);
-    res.status(200).send(`${user} has been removed`);
+    res.status(200).send(`${user.username} has been removed`);
   } else {
     res.status(400).send("no user found");
   }
 });
 
 app.delete("/users/:id/:title", (req, res) => {
-  const { id, movieTitle } = req.params;
+  const { id, title } = req.params;
   let user = users.find(user => user.id == id);
 
   if (user) {
-    user.topMovies = user.topMovies.filter(title => title !== movieTitle);
+    user.topMovies = user.topMovies.filter(title => title !== title);
     res
       .status(200)
-      .send(`${movieTitle} has been removed from user ${id} movie list`);
+      .send(`${title} has been removed from ${user.username} movie list`);
   } else {
     res.status(400).send("no user found");
   }
