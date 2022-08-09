@@ -16,8 +16,8 @@ let users = [
     id: 1,
     username: "Jarjar",
     password: "123",
-    email: "",
-    birthday: "",
+    email: "Jarjar@gmail.com",
+    birthday: "01/01/2001",
     topMovies: [
       {
         title: "The Dark Knight",
@@ -85,9 +85,9 @@ let users = [
   {
     id: 2,
     username: "Barbar",
-    password: "321",
-    email: "",
-    birthday: "",
+    password: "123",
+    email: "Barbar@gmail.com",
+    birthday: "02/02/2002",
     topMovies: [
       {
         title: "The Lion King",
@@ -150,6 +150,75 @@ let users = [
         }
       }
     ]
+  },
+  {
+    id: 3,
+    username: "DuckLover1",
+    password: "123",
+    email: "DuckLover1@gmail.com",
+    birthday: "03/03/2003",
+    topMovies: [
+      {
+        title: "Fight Club",
+        description:
+          "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
+        genre: {
+          name: "Action",
+          description:
+            "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats."
+        },
+        year: "1999",
+        featured: "y/n",
+        imgURL: " ",
+        director: {
+          name: "David Fincher",
+          bio:
+            "David Fincher was born in 1962 in Denver, Colorado, and was raised in Marin County, California. When he was 18 years old he went to work for John Korty at Korty Films in Mill Valley.",
+          birthYear: "1962",
+          deathYear: "N/A"
+        }
+      },
+      {
+        title: "Inception",
+        description:
+          "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
+        genre: {
+          name: "Thriller",
+          description:
+            "Thriller is a genre of fiction, having numerous, often overlapping subgenres. Thrillers are characterized and defined by the moods they elicit, giving viewers heightened feelings of suspense, excitement, surprise, anticipation and anxiety."
+        },
+        year: "2010",
+        featured: "y/n",
+        imgURL: " ",
+        director: {
+          name: "Christopher Nolan",
+          bio:
+            "Best known for his cerebral, often nonlinear, storytelling, acclaimed writer-director Christopher Nolan was born on July 30, 1970, in London, England.",
+          birthYear: "1970",
+          deathYear: "N/A"
+        }
+      },
+      {
+        title: "The Matrix",
+        description:
+          "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
+        genre: {
+          name: "Action",
+          description:
+            "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats."
+        },
+        year: "1999",
+        featured: "y/n",
+        imgURL: " ",
+        director: {
+          name: "Lana Wachowski",
+          bio:
+            "Lana Wachowski and her sister Lilly Wachowski, also known as the Wachowskis, are the duo behind such ground-breaking movies as The Matrix (1999) and Cloud Atlas (2012).",
+          birthYear: "1965",
+          deathYear: "N/A"
+        }
+      }
+    ]
   }
 ];
 
@@ -177,7 +246,7 @@ let movies = [
   {
     title: "Wall-E",
     description:
-      "TIn the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.",
+      "In the distant future, a small waste-collecting robot inadvertently embarks on a space journey that will ultimately decide the fate of mankind.",
     genre: {
       name: "Family",
       description:
