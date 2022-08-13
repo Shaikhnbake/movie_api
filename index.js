@@ -467,8 +467,8 @@ app.get("/movies/:title", (req, res) => {
     });
 });
 
-app.get("/movies/:genre", (req, res) => {
-  Movies.findOne({'genre.name': req.params.genre})
+app.get("/movies/genre/:genreName", (req, res) => {
+  Movies.findOne({'genre.name': req.params.genreName})
     .then((movie)=>{
       res.status(201).json(movie.genre);
     })
@@ -550,9 +550,8 @@ app.put('/users/:username', (req, res) => {
 });
 
 app.post('/users/:username/movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ username: req.params.username }, {
-     $push: { topMovies: req.params.MovieID }
-   },
+  Users.findOneAndUpdate({ username: req.params.username },
+    { $addToSet: { topMovies: req.params.MovieID } },
    { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
     if (err) {
@@ -581,9 +580,9 @@ app.delete('/users/:username', (req, res) => {
     });
 });
 
-app.delete('/users/:username/movies/:title', (req, res) => {
+app.delete('/users/:username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({ username: req.params.username }, {
-     $pull: { topMovies: req.params.title }
+     $pull: { topMovies: req.params.MovieID }
    },
    { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
