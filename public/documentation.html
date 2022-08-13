@@ -43,7 +43,7 @@
               whether it’s featured or not) about a single movie by title to the
               user.
             </td>
-            <td>/movies/[title]</td>
+            <td>/movies/:title</td>
             <td>GET</td>
             <td>None</td>
             <td>
@@ -57,7 +57,7 @@
           </tr>
           <tr>
             <td>3. Return data about a single movie by genre</td>
-            <td>/movies/genre/[genreTitle]</td>
+            <td>/movies/genre/:genreName</td>
             <td>GET</td>
             <td>None</td>
             <td>
@@ -73,7 +73,7 @@
               4. Return data about a director (bio, birth year, death year) by
               name
             </td>
-            <td>/movies/[director]/[name]</td>
+            <td>/movies/directors/:director</td>
             <td>GET</td>
             <td>None</td>
             <td>
@@ -105,7 +105,7 @@
           </tr>
           <tr>
             <td>6. Allow users to update their username</td>
-            <td>/users/[username]</td>
+            <td>/users/:username</td>
             <td>PUT</td>
             <td>None</td>
             <td>
@@ -120,7 +120,7 @@
             <td>
               7. Allow users to add a movie to their list of favorites.
             </td>
-            <td>/users/[username]/[topMovies]</td>
+            <td>/users/:username/movies/:MovieID</td>
             <td>POST</td>
             <td>None</td>
             <!-- or is the request data a json object with movie info? -->
@@ -130,14 +130,14 @@
             <td>
               8. Allow users to remove a movie from their list of favorites
             </td>
-            <td>/users/[username]/[topMovies]</td>
+            <td>/users/:username/movies/:MovieID</td>
             <td>DELETE</td>
             <td>None</td>
             <td>Message confirming movie has been deleted</td>
           </tr>
           <tr>
             <td>9. Allow existing users to unregister.</td>
-            <td>/users/[username]</td>
+            <td>/users/:username</td>
             <td>DELETE</td>
             <td>None</td>
             <td>Message confirming user has unregistered.</td>
