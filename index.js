@@ -467,10 +467,10 @@ app.get("/movies/:title", (req, res) => {
     });
 });
 
-app.get("/movies/genre/:genreName", (req, res) => {
-  Movies.findOne({'genre.name': req.params.genreName})
-    .then((movie)=>{
-      res.status(201).json(movie.genre);
+app.get("/movies/genres/:genre", (req, res) => {
+  Movies.findOne({"genre.name": req.params.genre})
+    .then((movies)=>{
+      res.status(201).json(movies.genre);
     })
     .catch((err) => {
       console.error(err);
