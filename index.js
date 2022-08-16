@@ -524,6 +524,7 @@ app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) =>{
 
 // CREATE REQUESTS
 app.post("/users", (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOne({ username: req.body.username })
     .then((user) => {
       if (user) {
@@ -531,7 +532,7 @@ app.post("/users", (req, res) => {
       } else {
         Users.create({
           username: req.body.username,
-          password: req.body.password,
+          password: hashedPassword,
           email: req.body.email,
           birthday: req.body.birthday
         })
@@ -552,10 +553,11 @@ app.post("/users", (req, res) => {
 
 //UPDATE REQUESTS
 app.put('/users/:username', passport.authenticate('jwt', {session: false}), (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.password);
   Users.findOneAndUpdate({ username: req.params.username }, { $set:
     {
       username: req.body.username,
-      password: req.body.password,
+      password: hashedPassword,
       email: req.body.email,
       birthday: req.body.birthday
     }
