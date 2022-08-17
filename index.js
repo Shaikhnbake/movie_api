@@ -169,7 +169,7 @@ app.put("/users",
     check('username', 'Username cannot have non alpha numeric characters.').isAlphanumeric(),
     check('password', 'Password is required.').not().isEmpty(),
     check('email', 'Email is not valid.').isEmail()
-  ], (req, res) => {
+  ], passport.authenticate('jwt', {session: false}), (req, res) => {
 
     //checks validation objects for errors
     let errors = validationResult(req);
