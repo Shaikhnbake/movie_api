@@ -8,10 +8,17 @@ const express = require("express"),
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+mongoose.connect( process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+
+//LOCAL HOST SERVER
+//  mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+//    useNewUrlParser: true,
+//    useUnifiedTopology: true
+//  });
 
 const app = express();
 // Automatically routes all requests for static files on server
