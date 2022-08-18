@@ -163,7 +163,7 @@ app.post("/users",
   });
 
 //UPDATE REQUESTS
-app.put("/users",
+app.put("/users/:username",
   [ //validation logic for request
     check('username', 'Username is required (min 5 characters).').isLength({min: 5}),
     check('username', 'Username cannot have non alpha numeric characters.').isAlphanumeric(),
