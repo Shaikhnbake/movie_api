@@ -120,6 +120,17 @@ app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) =>{
     });
 });
 
+app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req, res) =>{
+  Users.findOne({username: req.params.username})
+    .then((user)=>{
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
 // CREATE REQUESTS
 app.post("/users",
   [ //validation logic for request
