@@ -8,7 +8,7 @@ const express = require("express"),
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect( process.env.CONNECTION_URI, {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -31,20 +31,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //validation middleware for username/password input
-const {check, validationResult} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 
 const cors = require('cors');
 // let allowedOrigins = ['*', 'http://localhost:8080', 'http://testssite.com', 'http://localhost:1234', 'https://myflix1ns.netlify.app', 'http://localhost:4200'];
 app.use(cors({
-   origin: '*'
+  origin: '*'
   // (origin, callback) => {
   //   if(!origin) return callback(null, true);
   //   //if specific origin isnt found on list (=== -1)
   //   if(allowedOrigins.indexOf(origin) === -1){
   //     let message = 'The CORS policy for this application doesnt allow access from origin ' + origin;
   //     return callback(new Error(message), false);
-  //   }
+  //   } //
   //   return callback(null, true);
   // }
 }));
@@ -66,9 +66,9 @@ app.get("/", (req, res) => {
   res.send("<h1>YOU LIKE MOVIES? I got movies for you!</h1>");
 });
 
-app.get("/movies", passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-    .then((movies)=>{
+    .then((movies) => {
       res.status(201).json(movies);
     })
     .catch((err) => {
@@ -77,9 +77,9 @@ app.get("/movies", passport.authenticate('jwt', {session: false}), (req, res) =>
     });
 });
 
-app.get("/movies/:title", passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({title: req.params.title})
-    .then((movie)=>{
+app.get("/movies/:title", passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findOne({ title: req.params.title })
+    .then((movie) => {
       res.status(201).json(movie);
     })
     .catch((err) => {
@@ -88,9 +88,9 @@ app.get("/movies/:title", passport.authenticate('jwt', {session: false}), (req, 
     });
 });
 
-app.get("/movies/genres/:genre", passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({"genre.name": req.params.genre})
-    .then((movies)=>{
+app.get("/movies/genres/:genre", passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findOne({ "genre.name": req.params.genre })
+    .then((movies) => {
       res.status(201).json(movies.genre);
     })
     .catch((err) => {
@@ -99,9 +99,9 @@ app.get("/movies/genres/:genre", passport.authenticate('jwt', {session: false}),
     });
 });
 
-app.get("/movies/directors/:director", passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movies.findOne({'director.name': req.params.director})
-    .then((movie)=>{
+app.get("/movies/directors/:director", passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findOne({ 'director.name': req.params.director })
+    .then((movie) => {
       res.status(201).json(movie.director);
     })
     .catch((err) => {
@@ -110,9 +110,9 @@ app.get("/movies/directors/:director", passport.authenticate('jwt', {session: fa
     });
 });
 
-app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) =>{
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.find()
-    .then((users)=>{
+    .then((users) => {
       res.status(201).json(users);
     })
     .catch((err) => {
@@ -121,9 +121,9 @@ app.get('/users', passport.authenticate('jwt', {session: false}), (req, res) =>{
     });
 });
 
-app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req, res) =>{
-  Users.findOne({username: req.params.username})
-    .then((user)=>{
+app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne({ username: req.params.username })
+    .then((user) => {
       res.status(201).json(user);
     })
     .catch((err) => {
@@ -135,7 +135,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req
 // CREATE REQUESTS
 app.post("/users",
   [ //validation logic for request
-    check('username', 'Username is required (min 5 characters).').isLength({min: 5}),
+    check('username', 'Username is required (min 5 characters).').isLength({ min: 5 }),
     check('username', 'Username cannot have non alpha numeric characters.').isAlphanumeric(),
     check('password', 'Password is required.').not().isEmpty(),
     check('email', 'Email is not valid.').isEmail()
@@ -166,22 +166,22 @@ app.post("/users",
               console.error(error);
               res.status(500).send("Error: " + error);
             })
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send("Error: " + error);
-        });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
   });
 
 //UPDATE REQUESTS
 app.put("/users/:username",
   [ //validation logic for request
-    check('username', 'Username is required (min 5 characters).').isLength({min: 5}),
+    check('username', 'Username is required (min 5 characters).').isLength({ min: 5 }),
     check('username', 'Username cannot have non alpha numeric characters.').isAlphanumeric(),
     check('password', 'Password is required.').not().isEmpty(),
     check('email', 'Email is not valid.').isEmail()
-  ], passport.authenticate('jwt', {session: false}), (req, res) => {
+  ], passport.authenticate('jwt', { session: false }), (req, res) => {
 
     //checks validation objects for errors
     let errors = validationResult(req);
@@ -190,7 +190,8 @@ app.put("/users/:username",
     }
 
     let hashedPassword = Users.hashPassword(req.body.password);
-    Users.findOneAndUpdate({ username: req.params.username }, { $set:
+    Users.findOneAndUpdate({ username: req.params.username }, {
+      $set:
       {
         username: req.body.username,
         password: hashedPassword,
@@ -198,9 +199,23 @@ app.put("/users/:username",
         birthday: req.body.birthday
       }
     },
+      { new: true }, // This line makes sure that the updated document is returned
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error: ' + err);
+        } else {
+          res.json(updatedUser);
+        }
+      });
+  });
+
+app.post('/users/:username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username },
+    { $addToSet: { topMovies: req.params.MovieID } },
     { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
-      if(err) {
+      if (err) {
         console.error(err);
         res.status(500).send('Error: ' + err);
       } else {
@@ -209,23 +224,9 @@ app.put("/users/:username",
     });
 });
 
-app.post('/users/:username/movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
-  Users.findOneAndUpdate({ username: req.params.username },
-    { $addToSet: { topMovies: req.params.MovieID } },
-   { new: true }, // This line makes sure that the updated document is returned
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
-});
-
 //DELETE REQUESTS
 
-app.delete('/users/:username', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.delete('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ username: req.params.username })
     .then((user) => {
       if (!user) {
@@ -240,19 +241,19 @@ app.delete('/users/:username', passport.authenticate('jwt', {session: false}), (
     });
 });
 
-app.delete('/users/:username/movies/:MovieID', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.delete('/users/:username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ username: req.params.username }, {
-     $pull: { topMovies: req.params.MovieID }
-   },
-   { new: true }, // This line makes sure that the updated document is returned
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+    $pull: { topMovies: req.params.MovieID }
+  },
+    { new: true }, // This line makes sure that the updated document is returned
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
+    });
 });
 
 //ERROR HANDLER
@@ -263,6 +264,6 @@ app.use((err, req, res, next) => {
 
 //LISTENS FOR REQUESTS
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Listening on Port ' + port);
 });
